@@ -39,7 +39,6 @@ int main() {
 	pq.push({start, 0});
 
 
-
 	while (!pq.empty()) {
 		int node = pq.top().to;
 		int weight = pq.top().weight; pq.pop();
@@ -54,7 +53,7 @@ int main() {
 			if (visited[next]) continue;
 			if (dist[next] > dist[node] + nweight) {
 				dist[next] = dist[node] + nweight;
-				pq.push(adj_list[node][i]);
+				pq.push({next, dist[next]});
 			}
 		}
 
