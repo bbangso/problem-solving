@@ -2,7 +2,7 @@
 #include <queue>
 #include <vector>
 
-#define INF 1<<60
+long long INF = 1000000000LL * 50000LL;
 
 using namespace std;
 
@@ -33,6 +33,7 @@ int main() {
 	while (m--) {
 		scanf("%d %d %d", &n1, &n2, &w);
 		adj_list[n1].push_back({ n2,w });
+		adj_list[n2].push_back({ n1,w });
 	}
 
 	for (int i = 1; i <= n; i++) {
@@ -40,6 +41,8 @@ int main() {
 			dist[q][i] = INF;
 		}
 	}
+
+	
 	dist[0][1] = 0;
 
 	priority_queue<DIST> pq;
@@ -49,6 +52,7 @@ int main() {
 		int node = pq.top().node;
 		long long d = pq.top().dist;
 		int n_pave = pq.top().n_pave; pq.pop();
+		
 
 		if (visited[n_pave][node]) continue;
 		visited[n_pave][node] = 1;
@@ -64,10 +68,11 @@ int main() {
 
 			if (n_pave < k && dist[n_pave + 1][next] > dist[n_pave][node]) {
 				dist[n_pave + 1][next] = dist[n_pave][node];
-				pq.push({ next, dist[n_pave][next], n_pave + 1 });
+				pq.push({ next, dist[n_pave+1][next], n_pave + 1 });
 			}
 		}
 	}
+
 
 	long long ans = INF;
 	for (int q = 0; q <= k; q++) {
